@@ -177,7 +177,9 @@ const ProjectCard = ({ project, classes }) => {
                     )}
                     <CardMedia
                         className={classes.cardMedia}
-                        image={project.image || `https://via.placeholder.com/400x200/00bfbf/ffffff?text=${encodeURIComponent(project.name)}`}
+                        image={project.image 
+                            ? `${process.env.PUBLIC_URL}${project.image}` 
+                            : `https://via.placeholder.com/400x200/00bfbf/ffffff?text=${encodeURIComponent(project.name)}`}
                         title={project.name}
                     />
                 </div>

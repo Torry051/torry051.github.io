@@ -20,7 +20,7 @@ export const Logo = () => {
 
     return (
         <img
-            src="/TR.jpg"
+            src={`${process.env.PUBLIC_URL}/TR.jpg`}
             alt="TR Logo"
             className={classes.logoImage}
         />
