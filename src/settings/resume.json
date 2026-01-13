@@ -78,7 +78,7 @@
             "name": "SciVid.AI",
             "description": "SciVid.AI converts complex research papers into short, engaging videos, making scholarly ideas accessible through visual storytelling and flexible styles.",
             "type": "🌐 Web App",
-            "url": "https://scividai-2lbe.vercel.app/",
+            "url": "https://scividai.vercel.app/",
             "image": "/SciVid.png",
             "technologies": ["React", "Next.js", "Gemini", "Veo"]
         }
