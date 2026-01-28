@@ -119,10 +119,6 @@ export const About = () => {
                 <Typography variant="h3" component="h2" className={classes.sectionTitle}>
                     <TextDecrypt text="About Me" />
                 </Typography>
-                <Typography variant="body1" className={classes.sectionSubtitle}>
-                    My Introduction
-                </Typography>
-                
                 <div className={classes.contentWrapper}>
                     {/* Description */}
                     <Typography className={classes.description}>

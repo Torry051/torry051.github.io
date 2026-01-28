@@ -30,10 +30,10 @@
         },
         "profiles": [
             {
-                "network": "Google",
+                "network": "Email",
                 "username": "torry_tong@outlook.com",
                 "url": "mailto:torryt2004@gmail.com",
-                "x_icon": "fab fa-google"
+                "x_icon": "fas fa-envelope"
             },
             {
                 "network": "LinkedIn",
