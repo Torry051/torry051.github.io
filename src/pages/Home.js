@@ -11,6 +11,9 @@ import DisplacementSphere from '../components/background/DisplacementSphere';
 import { ThemeToggle } from '../components/theme/ThemeToggle';
 import { SocialIcons } from '../components/content/SocialIcons';
 import { SpeedDials } from '../components/speedDial/SpeedDial';
+import { LanguageToggle } from '../components/LanguageToggle';
+import { useLanguage } from '../context/LanguageContext';
+import translations from '../settings/translations';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -99,6 +102,8 @@ const useStyles = makeStyles((theme) => ({
 
 export const Home = () => {
   const classes = useStyles();
+  const { language } = useLanguage();
+  const t = translations[language];
 
   const scrollToAbout = () => {
     document.getElementById('about')?.scrollIntoView({ 
@@ -114,6 +119,7 @@ export const Home = () => {
           <DisplacementSphere />
           <LogoLink />
           <Content />
+          <LanguageToggle />
           <ThemeToggle />
           <Hidden smDown>
             <SocialIcons />
@@ -124,7 +130,7 @@ export const Home = () => {
           
           {/* Scroll Indicator */}
           <div className={classes.scrollIndicator} onClick={scrollToAbout}>
-            <span className={classes.scrollText}>Scroll</span>
+            <span className={classes.scrollText}>{t.scroll}</span>
             <div className={classes.scrollArrow}></div>
           </div>
         </div>

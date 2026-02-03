@@ -2,7 +2,8 @@ import React from "react";
 import { Typography, Container, Grid, LinearProgress, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { TextDecrypt } from "./TextDecrypt";
-import Resume from "../../settings/resume.json";
+import { useLanguage } from "../../context/LanguageContext";
+import translations from "../../settings/translations";
 
 const useStyles = makeStyles((theme) => ({
     section: {
@@ -120,7 +121,9 @@ const useStyles = makeStyles((theme) => ({
 
 export const Skills = () => {
     const classes = useStyles();
-    const skillCategories = Resume.skills || [];
+    const { language } = useLanguage();
+    const t = translations[language];
+    const skillCategories = t.skills.categories || [];
 
     // Collect all skill names for bottom tags
     const allSkillNames = skillCategories.reduce((acc, category) => {
@@ -134,7 +137,7 @@ export const Skills = () => {
         <section className={classes.section} id="skills">
             <Container maxWidth="md">
                 <Typography variant="h3" component="h2" className={classes.sectionTitle}>
-                    <TextDecrypt text="Skills" />
+                    <TextDecrypt text={t.skills.title} />
                 </Typography>
                 <Grid container spacing={4}>
                     {skillCategories.map((category, index) => (

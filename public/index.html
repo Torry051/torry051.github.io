@@ -27,6 +27,26 @@
         <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
         <meta name="theme-color" content="#00bfbf" />
         <title>Rui Tong</title>
+        <script>
+            // GitHub Pages SPA redirect (supports /cn and other client routes)
+            // Based on: https://github.com/rafgraph/spa-github-pages
+            (function (l) {
+                if (l.search && l.search[1] === "/") {
+                    var decoded = l.search
+                        .slice(2)
+                        .split("&")
+                        .map(function (s) {
+                            return s.replace(/~and~/g, "&");
+                        })
+                        .join("&");
+                    window.history.replaceState(
+                        null,
+                        null,
+                        l.pathname + decoded + l.hash
+                    );
+                }
+            })(window.location);
+        </script>
         <script type="application/ld+json">
             {
                 "@context": "https://schema.org",

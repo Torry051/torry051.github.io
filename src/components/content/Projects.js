@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { Typography, Container, Grid, Card, CardContent, CardMedia, CardActionArea, Chip, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { TextDecrypt } from "./TextDecrypt";
-import Resume from "../../settings/resume.json";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import { useLanguage } from "../../context/LanguageContext";
+import translations from "../../settings/translations";
 
 const useStyles = makeStyles((theme) => ({
     section: {
@@ -150,7 +151,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const ProjectCard = ({ project, classes }) => {
+const ProjectCard = ({ project, classes, t }) => {
     const [expanded, setExpanded] = useState(false);
     const descriptionLength = project.description?.length || 0;
     const needsExpand = descriptionLength > 120; // 超过120字符显示展开按钮
@@ -208,7 +209,7 @@ const ProjectCard = ({ project, classes }) => {
                                 onClick={handleExpandClick}
                                 endIcon={expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
                             >
-                                {expanded ? 'Show less' : 'Read more'}
+                                {expanded ? t.projects.showLess : t.projects.readMore}
                             </Button>
                         )}
                     </div>
@@ -230,18 +231,20 @@ const ProjectCard = ({ project, classes }) => {
 
 export const Projects = () => {
     const classes = useStyles();
-    const projects = Resume.projects || [];
+    const { language } = useLanguage();
+    const t = translations[language];
+    const projects = t.projects.items || [];
 
     return (
         <section className={classes.section} id="projects">
             <Container maxWidth="md">
                 <Typography variant="h3" component="h2" className={classes.sectionTitle}>
-                    <TextDecrypt text="Projects" />
+                    <TextDecrypt text={t.projects.title} />
                 </Typography>
                 <Grid container spacing={4}>
                     {projects.map((project, index) => (
                         <Grid item xs={12} sm={6} key={index} className={classes.gridItem}>
-                            <ProjectCard project={project} classes={classes} />
+                            <ProjectCard project={project} classes={classes} t={t} />
                         </Grid>
                     ))}
                 </Grid>

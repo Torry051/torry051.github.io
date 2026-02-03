@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Redirecting…</title>
+    <script>
+      // GitHub Pages SPA redirect (supports /cn and other client routes)
+      // Based on: https://github.com/rafgraph/spa-github-pages
+      (function () {
+        var l = window.location;
+        var path = l.pathname;
+        var search = l.search ? '&' + l.search.slice(1) : '';
+        var hash = l.hash || '';
+        l.replace(l.origin + '/?/' + path.slice(1) + search + hash);
+      })();
+    </script>
+  </head>
+  <body></body>
+</html>
+

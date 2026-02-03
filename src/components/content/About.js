@@ -4,6 +4,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import { TextDecrypt } from "./TextDecrypt";
 import Resume from "../../settings/resume.json";
 import GetAppIcon from '@material-ui/icons/GetApp';
+import { useLanguage } from "../../context/LanguageContext";
+import translations from "../../settings/translations";
 
 const useStyles = makeStyles((theme) => ({
     section: {
@@ -112,17 +114,20 @@ const useStyles = makeStyles((theme) => ({
 export const About = () => {
     const classes = useStyles();
     const about = Resume.about || {};
+    const { language } = useLanguage();
+    const t = translations[language];
+    const cvHref = language === 'zh' ? `${process.env.PUBLIC_URL}/resume-cn.pdf` : (about.cvLink || "/resume");
 
     return (
         <section className={classes.section} id="about">
             <Container maxWidth="md">
                 <Typography variant="h3" component="h2" className={classes.sectionTitle}>
-                    <TextDecrypt text="About Me" />
+                    <TextDecrypt text={t.about.title} />
                 </Typography>
                 <div className={classes.contentWrapper}>
                     {/* Description */}
                     <Typography className={classes.description}>
-                        {about.description || Resume.basics.description}
+                        {t.about.description}
                     </Typography>
                     
                     {/* Stats */}
@@ -132,7 +137,11 @@ export const About = () => {
                                 {about.yearsExperience || "02+"}
                             </Typography>
                             <Typography className={classes.statLabel}>
-                                Years<br/>experience
+                                {t.about.yearsExperience.split('\n').map((line, i) => (
+                                    <React.Fragment key={i}>
+                                        {line}{i === 0 && <br/>}
+                                    </React.Fragment>
+                                ))}
                             </Typography>
                         </div>
                         <div className={classes.statItem}>
@@ -140,7 +149,11 @@ export const About = () => {
                                 {about.completedProjects || "20+"}
                             </Typography>
                             <Typography className={classes.statLabel}>
-                                Completed<br/>projects
+                                {t.about.completedProjects.split('\n').map((line, i) => (
+                                    <React.Fragment key={i}>
+                                        {line}{i === 0 && <br/>}
+                                    </React.Fragment>
+                                ))}
                             </Typography>
                         </div>
                         <div className={classes.statItem}>
@@ -148,7 +161,11 @@ export const About = () => {
                                 {about.customStat || "∞"}
                             </Typography>
                             <Typography className={classes.statLabel}>
-                                {about.customStatLabel || "Passion for\ntech"}
+                                {t.about.passionForGames.split('\n').map((line, i) => (
+                                    <React.Fragment key={i}>
+                                        {line}{i === 0 && <br/>}
+                                    </React.Fragment>
+                                ))}
                             </Typography>
                         </div>
                     </div>
@@ -157,11 +174,11 @@ export const About = () => {
                     <Button 
                         variant="contained" 
                         className={classes.downloadButton}
-                        href={about.cvLink || "/resume"}
+                        href={cvHref}
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        Download CV
+                        {t.about.downloadCV}
                         <GetAppIcon className={classes.buttonIcon} />
                     </Button>
                 </div>

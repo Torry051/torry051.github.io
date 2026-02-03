@@ -2,7 +2,8 @@ import React from "react";
 import { Typography, Container } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { TextDecrypt } from "./TextDecrypt";
-import Resume from "../../settings/resume.json";
+import { useLanguage } from "../../context/LanguageContext";
+import translations from "../../settings/translations";
 
 const useStyles = makeStyles((theme) => ({
     section: {
@@ -116,7 +117,9 @@ const useStyles = makeStyles((theme) => ({
 
 export const Experience = () => {
     const classes = useStyles();
-    const experiences = Resume.experience || Resume.work || [];
+    const { language } = useLanguage();
+    const t = translations[language];
+    const experiences = t.experience.items || [];
 
     if (experiences.length === 0) {
         return null;
@@ -126,7 +129,7 @@ export const Experience = () => {
         <section className={classes.section} id="experience">
             <Container maxWidth="md">
                 <Typography variant="h3" component="h2" className={classes.sectionTitle}>
-                    <TextDecrypt text="My Experience" />
+                    <TextDecrypt text={t.experience.title} />
                 </Typography>
                 
                 <div className={classes.timeline}>
@@ -142,7 +145,7 @@ export const Experience = () => {
                                     <span className={classes.separator}>|</span>
                                     <span>{exp.location}</span>
                                     <span className={classes.separator}>|</span>
-                                    <span>{exp.startDate} - {exp.endDate || 'Present'}</span>
+                                    <span>{exp.startDate} - {exp.endDate}</span>
                                 </div>
                                 {exp.highlights && exp.highlights.length > 0 && (
                                     <ul className={classes.highlightsList}>
