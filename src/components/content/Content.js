@@ -58,7 +58,7 @@ export const Content = () => {
     return (
         <Container component="main" className={`${classes.main}`} maxWidth="sm">
             <Typography variant="h2" component="h1" gutterBottom>
-                <TextDecrypt text={`${t.hero.greeting} ${t.hero.name || FirstName}`} />
+                <TextDecrypt text={`${t.hero.greeting} ${FirstName}`} />
             </Typography>
             <Typography variant="h5" component="h2" gutterBottom>
                 <TextDecrypt text={t.hero.job} />

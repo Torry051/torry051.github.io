@@ -2,13 +2,6 @@ import React, { createContext, useState, useContext, useEffect } from 'react';
 
 const LanguageContext = createContext();
 
-const getLanguageFromPathname = (pathname) => {
-    // URL is the source of truth:
-    // - /cn (and anything under it) => Chinese
-    // - otherwise => English
-    return pathname && pathname.startsWith('/cn') ? 'zh' : 'en';
-};
-
 export const useLanguage = () => {
     const context = useContext(LanguageContext);
     if (!context) {
@@ -19,19 +12,15 @@ export const useLanguage = () => {
 
 export const LanguageProvider = ({ children }) => {
     const [language, setLanguage] = useState(() => {
-        return getLanguageFromPathname(window.location.pathname);
+        // Check localStorage for saved preference
+        const saved = localStorage.getItem('language');
+        return saved || 'en';
     });
 
     useEffect(() => {
+        // Save to localStorage whenever language changes
         localStorage.setItem('language', language);
     }, [language]);
-
-    useEffect(() => {
-        // Keep language in sync when user navigates with back/forward
-        const onPopState = () => setLanguage(getLanguageFromPathname(window.location.pathname));
-        window.addEventListener('popstate', onPopState);
-        return () => window.removeEventListener('popstate', onPopState);
-    }, []);
 
     const toggleLanguage = () => {
         setLanguage(prev => prev === 'en' ? 'zh' : 'en');

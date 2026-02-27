@@ -1,6 +1,5 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { useHistory, useLocation } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 
 const useStyles = makeStyles((theme) => ({
@@ -53,30 +52,19 @@ const useStyles = makeStyles((theme) => ({
 export const LanguageToggle = () => {
     const classes = useStyles();
     const { language, setLanguage } = useLanguage();
-    const history = useHistory();
-    const location = useLocation();
-
-    const go = (target) => {
-        // Keep current sub-path when possible
-        const isCn = location.pathname.startsWith('/cn');
-        const rest = isCn ? location.pathname.slice(3) || '/' : location.pathname;
-        const nextPath = target === 'zh' ? `/cn${rest}` : rest;
-        setLanguage(target);
-        history.push(nextPath);
-    };
 
     return (
         <div className={classes.toggleContainer}>
             <button
                 className={`${classes.languageButton} ${language === 'en' ? classes.activeLanguage : ''}`}
-                onClick={() => go('en')}
+                onClick={() => setLanguage('en')}
             >
                 EN
             </button>
             <span className={classes.divider}>|</span>
             <button
                 className={`${classes.languageButton} ${language === 'zh' ? classes.activeLanguage : ''}`}
-                onClick={() => go('zh')}
+                onClick={() => setLanguage('zh')}
             >
                 中文
             </button>
