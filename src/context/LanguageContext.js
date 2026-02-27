@@ -1,4 +1,5 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useContext } from 'react';
+import { useLocation, useHistory } from 'react-router-dom';
 
 const LanguageContext = createContext();
 
@@ -11,28 +12,25 @@ export const useLanguage = () => {
 };
 
 export const LanguageProvider = ({ children }) => {
-    const [language, setLanguage] = useState(() => {
-        // Check localStorage for saved preference
-        const saved = localStorage.getItem('language');
-        return saved || 'en';
-    });
+    const location = useLocation();
+    const history = useHistory();
 
-    useEffect(() => {
-        // Save to localStorage whenever language changes
-        localStorage.setItem('language', language);
-    }, [language]);
+    const language = location.pathname.startsWith('/cn') ? 'zh' : 'en';
 
-    const toggleLanguage = () => {
-        setLanguage(prev => prev === 'en' ? 'zh' : 'en');
+    const setLanguage = (lang) => {
+        if (lang === 'zh' && language !== 'zh') {
+            history.push('/cn');
+        } else if (lang === 'en' && language !== 'en') {
+            history.push('/');
+        }
     };
 
-    const t = (key) => {
-        // This will be used with the translations
-        return key;
+    const toggleLanguage = () => {
+        setLanguage(language === 'en' ? 'zh' : 'en');
     };
 
     return (
-        <LanguageContext.Provider value={{ language, setLanguage, toggleLanguage, t }}>
+        <LanguageContext.Provider value={{ language, setLanguage, toggleLanguage }}>
             {children}
         </LanguageContext.Provider>
     );

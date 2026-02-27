@@ -12,25 +12,24 @@ import { Home } from "../pages/Home";
 const Resume = lazy(() => import("../pages/Resume"));
 const PageNotFound = lazy(() => import("../pages/PageNotFound"));
 
-// Use basename for GitHub Pages deployment
 const basename = process.env.PUBLIC_URL || "";
 
 export const App = () => {
     logCredits();
 
     return (
-        <LanguageProvider>
-            <ThemeProvider>
-                <CssBaseline />
-                <Router basename={basename}>
+        <ThemeProvider>
+            <CssBaseline />
+            <Router basename={basename}>
+                <LanguageProvider>
                     <HelmetMeta />
                     <Switch>
-                        <Route path="/" exact component={Home} />
+                        <Route path={["/cn", "/"]} exact component={Home} />
                         <Route path="/resume" component={Resume} />
                         <Route path="*" component={PageNotFound} />
                     </Switch>
-                </Router>
-            </ThemeProvider>
-        </LanguageProvider>
+                </LanguageProvider>
+            </Router>
+        </ThemeProvider>
     );
 };
